@@ -24,3 +24,6 @@ jobs:
 
       - name: Cowsays
         run: cowsay "Ready for prod–ship it!"
+        env:
+          COWSAY_COLOR: magenta
+          COWSAY_FONT: slant
