@@ -14,12 +14,13 @@ jobs:
       - name: Step 2
         run: echo "Step 2 complete!"
 
-  job2:
+
+job2:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install cowsay
+        run: sudo apt-get install -y cowsay
+
       - name: Cowsays
-        uses: jessfraz/cowsay-action@master
-        with:
-          text: "Ready for prod–ship it!"
-          color: "magenta"
+        run: cowsay "Ready for prod–ship it!"
