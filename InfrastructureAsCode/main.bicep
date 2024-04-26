@@ -14,4 +14,46 @@ var registrySku = 'Standard'
 var imageName = 'techboost/dotnetcoreapp'
 var startupCommand = ''
 
-// TODO: complete this script
+resource appServicePlan 'Microsoft.Web/serverfarms@2021-01-01' = {
+  name: appServicePlanName
+  location: location
+  sku: {
+    name: sku
+  }
+}
+
+resource webApp 'Microsoft.Web/sites@2021-01-01' = {
+  name: webAppName
+  location: location
+  properties: {
+    serverFarmId: appServicePlan.id
+    siteConfig: {
+      appSettings: [
+        {
+          name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
+          value: 'false'
+        }
+      ]
+    }
+  }
+}
+
+resource appInsights 'Microsoft.Insights/components@2021-02-01-preview' = {
+  name: appInsightsName
+  location: location
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+  }
+}
+
+resource registry 'Microsoft.ContainerRegistry/registries@2021-06-01-preview' = {
+  name: registryName
+  location: location
+  sku: {
+    name: registrySku
+  }
+  properties: {
+    adminUserEnabled: true
+  }
+}
