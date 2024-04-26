@@ -14,16 +14,13 @@ jobs:
       - name: Step 2
         run: echo "Step 2 complete!"
 
-
   job2:
+    needs: job1
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install cowsay
-        run: sudo apt-get install -y cowsay
-
+      - name: Install cowsay and lolcat
+        run: sudo apt-get install -y cowsay lolcat
+  
       - name: Cowsays
-        run: cowsay "Ready for prod–ship it!"
-        env:
-          COWSAY_COLOR: magenta
-          COWSAY_FONT: slant
+        run: cowsay "Ready for prod–ship it!" | lolcat
